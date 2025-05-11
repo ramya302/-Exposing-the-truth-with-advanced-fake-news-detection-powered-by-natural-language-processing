@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Truth Detector - NLP Powered</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background: #f2f2f2;
+            padding: 40px;
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+        }
+        textarea {
+            width: 90%;
+            max-width: 600px;
+            height: 200px;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            resize: none;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 25px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 30px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Truth Detector</h1>
+    <p>Paste any news or sentence below and detect whether it's real, fake, or its sentiment.</p>
+    <form method="POST">
+        <textarea name="text" placeholder="Paste your content here..." required></textarea><br>
+        <button type="submit">Analyze</button>
+    </form>
+
+    {% if result %}
+        <div class="result">
+            Result: {{ result }}
+        </div>
+    {% endif %}
+</body>
+</html>
