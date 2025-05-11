@@ -1,0 +1,29 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Load dataset
+df = pd.read_csv('fake_news.csv')  # Dataset should contain 'text' and 'label' columns
+
+# Encode labels if needed
+if df['label'].dtype == object:
+    df['label'] = df['label'].map({'FAKE': 0, 'REAL': 1})
+
+# Calculate word count
+df['word_count'] = df['text'].apply(lambda x: len(str(x).split()))
+
+# Plot histogram
+plt.hist(
+    [df[df['label'] == 0]['word_count'], df[df['label'] == 1]['word_count']],
+    bins=30,
+    label=['Fake', 'Real'],
+    color=['red', 'green'],
+    edgecolor='black'
+)
+
+plt.title("Word Count Distribution in Fake vs Real News")
+plt.xlabel("Word Count")
+plt.ylabel("Frequency")
+plt.legend()
+plt.grid(True)
+plt.tight_layout()
+plt.show()

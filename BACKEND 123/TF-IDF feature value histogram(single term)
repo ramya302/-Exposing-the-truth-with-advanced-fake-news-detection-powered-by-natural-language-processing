@@ -1,0 +1,31 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.feature_extraction.text import TfidfVectorizer
+
+# Load your dataset
+df = pd.read_csv('fake_news.csv')  # Ensure this file exists and has a 'text' column
+
+# Fill missing text entries
+df['text'] = df['text'].fillna("")
+
+# Initialize TF-IDF Vectorizer
+vectorizer = TfidfVectorizer(stop_words='english', max_features=1000)
+X = vectorizer.fit_transform(df['text'])
+
+# Check if the word exists in vocabulary
+target_word = 'government'
+word_index = vectorizer.vocabulary_.get(target_word)
+
+# Plot if word is found
+if word_index is not None:
+    word_tfidf = X[:, word_index].toarray().flatten()
+    
+    plt.hist(word_tfidf, bins=30, color='purple', edgecolor='black')
+    plt.title(f"TF-IDF Distribution for '{target_word}'")
+    plt.xlabel("TF-IDF Score")
+    plt.ylabel("Frequency")
+    plt.grid(True)
+    plt.tight_layout()
+    plt.show()
+else:
+    print(f"The word '{target_word}' is not in the TF-IDF vocabulary.")
